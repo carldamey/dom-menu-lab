@@ -44,3 +44,24 @@ menuLinks.forEach(link => {
     newLink.innerText = link.text
     topMenuEl.appendChild(newLink)
 })
+
+
+
+
+// Task 4.0
+const subMenuEl = document.getElementById("sub-menu")
+
+// Task 4.1
+subMenuEl.style.height = "100%"
+
+// Task 4.2
+subMenuEl.style.backgroundColor = "var(--sub-menu-bg)"
+
+// Task 4.3
+subMenuEl.classList.add("flex-around")
+
+// Task 4.4
+subMenuEl.style.position = "absolute"
+
+// Task 4.5
+subMenuEl.style.top = "0"
