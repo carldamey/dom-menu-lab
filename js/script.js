@@ -1,10 +1,23 @@
 // Menu data structure
 const menuLinks = [
     {text: 'about', href: '/about'},
-    {text: 'catalog', href: '/catalog'},
-    {text: 'orders', href: '/orders'},
-    {text: 'account', href: '/account'},
+    {text: 'catalog', href: '#', subLinks: [
+      {text: 'all', href: '/catalog/all'},
+      {text: 'top selling', href: '/catalog/top'},
+      {text: 'search', href: '/catalog/search'},
+    ]},
+    {text: 'orders', href: '#' , subLinks: [
+      {text: 'new', href: '/orders/new'},
+      {text: 'pending', href: '/orders/pending'},
+      {text: 'history', href: '/orders/history'},
+    ]},
+    {text: 'account', href: '#', subLinks: [
+      {text: 'profile', href: '/account/profile'},
+      {text: 'sign out', href: '/account/signout'},
+    ]},
   ]
+
+  let subLinksArr
   
 // Task 1.0
 const mainEl = document.querySelector("main")
@@ -41,6 +54,7 @@ topMenuEl.classList.add("flex-around")
 menuLinks.forEach(link => {
     const newLink = document.createElement("a")
     newLink.setAttribute("href", link.href)
+    newLink.setAttribute("onclick", "return false")
     newLink.innerText = link.text
     topMenuEl.appendChild(newLink)
 })
@@ -65,3 +79,73 @@ subMenuEl.style.position = "absolute"
 
 // Task 4.5
 subMenuEl.style.top = "0"
+
+
+// Task 5.0 
+// menuLinks array updated according to instructions
+
+// Task 5.1
+const topMenuLinks = document.querySelectorAll("A")
+let showingSubMenu = false
+
+// Task 5.2
+topMenuEl.addEventListener("click", function(event) {
+    event.preventDefault()
+    if (event.target.tagName !== "A") return
+
+// Task 5.3
+    if (event.target.classList.contains("active")) {
+        event.target.classList.remove("active")
+        showingSubMenu = false
+        subMenuEl.style.top = "0"
+        return
+    }
+
+// Task 5.4"
+    topMenuLinks.forEach(link => link.classList.remove("active"))
+
+// Task 5.5
+    event.target.classList.add("active")
+
+// Task 5.6
+    showingSubMenu = true
+    if (event.target.innerText === "ABOUT") showingSubMenu = false
+    else if (event.target.innerText === "CATALOG") {subLinksArr = menuLinks[1].subLinks}
+    else if (event.target.innerText === "ORDERS") {subLinksArr = menuLinks[2].subLinks}
+    else if (event.target.innerText === "ACCOUNT") {subLinksArr = menuLinks[3].subLinks}
+
+// Task 5.7
+    if (showingSubMenu) {
+        buildSubMenu(subLinksArr)
+        subMenuEl.style.top = "100%"
+    } else {
+        subMenuEl.style.top = "0"
+        mainEl.innerHTML = "<h1>about</h1>"
+    }
+
+})
+
+// Task 5.8
+function buildSubMenu(subLinksArr) {
+    subMenuEl.innerHTML = ""
+    subLinksArr.forEach(subLink => {
+        newSubLink = document.createElement("a")
+        newSubLink.setAttribute("href", subLink.href)
+        newSubLink.setAttribute("onclick", "return false")
+        newSubLink.innerText = subLink.text
+        subMenuEl.appendChild(newSubLink)
+
+    })
+}
+
+
+// Task 6.0
+
+
+// Task 6.1
+
+
+// Task 6.2
+
+
+//Task 6.3
