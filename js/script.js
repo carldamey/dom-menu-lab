@@ -140,12 +140,17 @@ function buildSubMenu(subLinksArr) {
 
 
 // Task 6.0
-
+subMenuEl.addEventListener("click", (event) => {
+    event.preventDefault()
+    if (event.target.tagName !== "A") return
 
 // Task 6.1
-
+showingSubMenu = false
+subMenuEl.style.top = "0"
 
 // Task 6.2
-
+topMenuLinks.forEach(link => link.classList.remove("active"))
 
 //Task 6.3
+mainEl.innerHTML = `<h1>${event.target.innerHTML}</h1>`
+})
